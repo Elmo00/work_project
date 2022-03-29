@@ -1,0 +1,47 @@
+{% extends 'proxy/base.html' %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'css/index.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div style="text-align: center;">
+    <table  class="table table-dark table-striped table-bordered align-middle" >
+      <tbody>
+          <tr>
+                  <h1>{{ department }}</h1>
+          </tr>
+          {% for user in department_user1 %}
+              <tr>
+                  <form action="{% url 'proxy:proxy_user' user.id %}" method="POST">
+                      {% csrf_token %}
+                      <th scope="row">
+                          {{ user }}
+                      </th>
+                      <th scope="row" width="12%"><input type="date" name="from_data" class="form-control"></th>
+                      <th scope="row" width="12%"><input type="date" name="to_data" class="form-control"></th>
+                      <th>
+                          <button type="submit" class="btn btn-success">
+                                Показать
+                          </button>
+                      </th>
+                  </form>
+              </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+    </div>
+{% endblock %}
+
+<form action="{% url 'proxy:proxy_user' user.id %}" method="POST">
+              {% csrf_token %}
+                <tr>
+                  <th scope="row" width="12%"><input type="date" name="event_data" class="form-control" id="event_data"></th>
+                  <td width="10%"><input type="text" name="event_document" class="form-control" id="event_document"></td>
+
+                </tr>
+                <button type="submit" class="btn btn-success">
+                    Save
+                </button>
+            </form>

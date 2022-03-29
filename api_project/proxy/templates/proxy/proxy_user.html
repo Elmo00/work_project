@@ -1,0 +1,30 @@
+{% extends 'proxy/base.html' %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'css/index.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div style="text-align: center;">
+    <table  class="table table-dark table-striped table-bordered align-middle" >
+      <tbody>
+          <tr>
+              <th scope="row">
+                  <h1>{{ user1.user_name }}</h1>
+              </th>
+          </tr>
+          <tr>
+              <th scope="row">
+                  {{ user1.proxy_name }}
+              </th>
+          </tr>
+          <tr>
+              <th scope="row">
+                  {{ user1.department_name }}
+              </th>
+          </tr>
+      </tbody>
+    </table>
+    </div>
+{% endblock %}

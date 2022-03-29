@@ -1,0 +1,15 @@
+{% extends 'vks/base.html' %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'css/index.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <br>
+    {% include 'vks/table.html' %}
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

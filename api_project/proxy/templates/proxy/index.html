@@ -1,0 +1,24 @@
+{% extends 'proxy/base.html' %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'css/index.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div style="text-align: center;">
+    <table  class="table table-dark table-striped table-bordered align-middle" >
+      <tbody>
+          {% if division %}
+              {% for department in division %}
+                  <tr>
+                      <th scope="row">
+                          <a class="start-purchase-link" href="{% url 'proxy:department_users' department.id %}">{{ department }}</a>
+                      </th>
+                  </tr>
+              {% endfor %}
+          {% endif %}
+      </tbody>
+    </table>
+    </div>
+{% endblock %}

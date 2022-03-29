@@ -1,0 +1,76 @@
+<div style="text-align: center;">
+    <table width="200" class="table table-dark table-striped table-bordered align-middle" >
+      <thead>
+        <tr>
+            {% if error %}
+                <div width="80%" class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+          <th scope="col">Дата</th>
+          <th scope="col">Время</th>
+          <th scope="col">Организатор</th>
+          <th scope="col">Тип</th>
+          <th scope="col">Место</th>
+          <th scope="col">Документ</th>
+          <th scope="col">Заметка</th>
+        </tr>
+      </thead>
+      <tbody>
+        <form action="{% url 'vks:add_event' %}" method="POST">
+            {% csrf_token %}
+            <tr>
+              <th scope="row" width="12%"><input type="date" name="event_data" class="form-control" id="event_data"></th>
+              <td width="8%"><input type="time" name="event_time" class="form-control" id="event_time"></td>
+              <td width="15%"><input type="text" name="event_organizer" class="form-control" id="event_organizer"></td>
+              <td width="10%"><input type="text" name="event_type" class="form-control" id="event_type"></td>
+              <td width="10%"><input type="text" name="event_place" class="form-control" id="event_place"></td>
+              <td width="10%"><input type="text" name="event_document" class="form-control" id="event_document"></td>
+              <td td width="35%"><input type="text" name="event_description" class="form-control" id="event_description"></td>
+            </tr>
+            <button type="submit" class="btn btn-success">
+                Save
+            </button>
+            <button type="button" class="btn btn-info">
+              <a id="start-purchase-link" href="{% url 'vks:events' %}">Reset</a>
+            </button >
+        </form>
+      {% for event in events %}
+        <tr>
+          <th scope="row" width="12%">{{ event.event_data }}</th>
+          <td width="8%">{{ event.event_time }}</td>
+          <td width="15%">{{ event.event_organizer }}</td>
+          <td width="10%">{{ event.event_type }}</td>
+          <td width="10%">{{ event.event_place }}</td>
+          <td width="10%">{{ event.event_document }}</td>
+          <td width="35%" align="left">{{ event.event_description }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if not events.has_previous %} disabled {% endif %}">
+                <a class="page-link"
+                   href="{% if events.has_previous %} {% url 'vks:page' events.previous_page_number %} {% else %} # {% endif %}"
+                   tabindex="-1" aria-disabled="true">
+                    Предыдущая
+                </a>
+            </li>
+            {% for page in events.paginator.page_range %}
+            <li class="page-item">
+                <a class="page-link" href="{% url 'vks:page' page %}">
+                    {{ page }}
+                </a>
+            </li>
+            {% endfor %}
+            <li class="page-item">
+            <li class="page-item {% if not events.has_next %} disabled {% endif %}">
+                <a class="page-link"
+                   href="{% if events.has_next %} {% url 'vks:page' events.next_page_number %} {% else %} # {% endif %}">
+                    Следующая
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
